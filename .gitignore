@@ -1,0 +1,3 @@
+# Keep large binaries out of git history; attach APKs to GitHub Releases instead.
+*.apk
+*.aab
