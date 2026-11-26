@@ -7,30 +7,30 @@
   <meta name="description" content="Companion Android app for CMF Watch Pro 2 — live health &amp; fitness tracking, GPS workouts, 900+ FMC watch faces, widgets, and firmware tools." />
   <style>
     :root {
-      --bg: #ffffff;
-      --bg-soft: #f8fafc;
+      --bg: #f6f8fb;
       --card: #ffffff;
-      --border: #e5e7eb;
-      --text: #111827;
-      --muted: #6b7280;
-      --pill-bg: #f3f4f6;
-      --primary: #9fa8ff;
-      --primary-hover: #8590ff;
-      --primary-text: #111827;
+      --card-soft: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --pill-bg: #f1f5f9;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
       --accent: #ff5510;
+      --shadow: 0 8px 28px rgba(15, 23, 42, 0.05);
     }
 
     body.dark {
       --bg: #0b0d12;
-      --bg-soft: #121620;
-      --card: #151a24;
+      --card: #141821;
+      --card-soft: #1a202c;
       --border: rgba(255, 255, 255, 0.09);
-      --text: #f3f4f6;
-      --muted: #9ca3af;
+      --text: #f8fafc;
+      --muted: #94a3b8;
       --pill-bg: rgba(255, 255, 255, 0.07);
       --primary: #818cf8;
       --primary-hover: #6366f1;
-      --primary-text: #ffffff;
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
 
     * {
@@ -41,7 +41,10 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(1000px 420px at 10% -10%, rgba(99, 102, 241, 0.08), transparent 60%),
+        radial-gradient(900px 420px at 90% -10%, rgba(255, 85, 16, 0.07), transparent 60%),
+        var(--bg);
       color: var(--text);
       line-height: 1.55;
       transition: background 0.2s ease, color 0.2s ease;
@@ -52,19 +55,24 @@
       text-decoration: none;
     }
 
-    /* Top Header */
+    /* Sticky Glass Navbar */
     .navbar {
       border-bottom: 1px solid var(--border);
-      background: var(--bg);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
+    }
+
+    body.dark .navbar {
+      background: rgba(11, 13, 18, 0.85);
     }
 
     .nav-inner {
-      max-width: 1140px;
+      max-width: 1380px;
       margin: 0 auto;
-      padding: 12px 20px;
+      padding: 12px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -74,14 +82,18 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      font-size: 15px;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.3px;
     }
 
-    .brand-sep {
-      color: var(--muted);
-      font-weight: 400;
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(255, 85, 16, 0.55);
     }
 
     .brand-sub {
@@ -93,16 +105,15 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
       font-size: 13.5px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--muted);
     }
 
     .nav-links a:hover,
     .nav-links a.active {
       color: var(--text);
-      font-weight: 600;
     }
 
     .nav-actions {
@@ -116,7 +127,7 @@
       background: var(--card);
       color: var(--text);
       border-radius: 10px;
-      padding: 6px 11px;
+      padding: 7px 13px;
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
@@ -129,21 +140,50 @@
       background: var(--pill-bg);
     }
 
-    /* Page Layout */
+    /* Full-Wide 2-Column Layout */
     .page {
-      max-width: 1140px;
+      max-width: 1380px;
       margin: 0 auto;
-      padding: 28px 20px 64px;
+      padding: 28px 28px 72px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 310px;
+      grid-template-columns: minmax(0, 1fr) 330px;
       gap: 28px;
       align-items: start;
     }
 
+    .hero-banner {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 26px;
+      box-shadow: var(--shadow);
+    }
+
     .breadcrumb {
       font-size: 12.5px;
+      font-weight: 600;
       color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .app-badge-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ff6b2c, #ff5510);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(255, 85, 16, 0.25);
+      flex-shrink: 0;
     }
 
     .title {
@@ -157,7 +197,7 @@
       margin-top: 10px;
       font-size: 15px;
       color: var(--muted);
-      max-width: 720px;
+      max-width: 820px;
     }
 
     .meta-pills {
@@ -171,17 +211,19 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 11px;
-      border-radius: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
       border: 1px solid var(--border);
-      background: var(--card);
+      background: var(--card-soft);
       font-size: 12px;
       font-weight: 600;
       color: var(--text);
     }
 
-    .pill:hover {
-      background: var(--pill-bg);
+    .pill.accent {
+      background: rgba(255, 85, 16, 0.1);
+      border-color: rgba(255, 85, 16, 0.25);
+      color: #e04608;
     }
 
     /* Tabs */
@@ -191,8 +233,9 @@
       padding: 4px;
       border-radius: 12px;
       background: var(--pill-bg);
-      margin-top: 22px;
-      margin-bottom: 18px;
+      margin-top: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
     }
 
     .tab-btn {
@@ -201,42 +244,41 @@
       color: var(--muted);
       font-size: 13px;
       font-weight: 600;
-      padding: 7px 16px;
+      padding: 8px 18px;
       border-radius: 9px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
       transition: 0.15s ease;
     }
 
     .tab-btn.active {
       background: var(--card);
       color: var(--text);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
     }
 
-    /* Content Card */
+    /* Main Content Box */
     .content-box {
       border: 1px solid var(--border);
       background: var(--card);
-      border-radius: 16px;
-      padding: 22px;
+      border-radius: 20px;
+      padding: 24px 26px;
+      box-shadow: var(--shadow);
     }
 
     .content-box h2 {
       font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
     }
 
     .content-box h3 {
-      font-size: 15px;
+      font-size: 15.5px;
       font-weight: 700;
-      margin-top: 20px;
-      margin-bottom: 8px;
+      margin-top: 24px;
+      margin-bottom: 10px;
     }
 
     .content-box p,
@@ -250,42 +292,75 @@
       padding-left: 20px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 7px;
     }
 
     .content-box strong {
       color: var(--text);
     }
 
-    /* 8 Screenshots (2 in a row) */
+    /* 3-per-row Modern Screenshot Grid */
     .shots-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin: 14px 0 22px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 14px 0 26px;
     }
 
     .shot-card {
       border: 1px solid var(--border);
-      background: var(--bg-soft);
-      border-radius: 14px;
-      padding: 8px;
+      background: var(--card-soft);
+      border-radius: 16px;
+      padding: 10px;
       text-align: center;
+      cursor: zoom-in;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .shot-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
     }
 
     .shot-card img {
       width: 100%;
       aspect-ratio: 9 / 19.5;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 12px;
       display: block;
-      background: #111827;
+      background: #e2e8f0;
     }
 
     .shot-cap {
-      margin-top: 7px;
-      font-size: 12px;
-      font-weight: 600;
+      margin-top: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .feature-item {
+      border: 1px solid var(--border);
+      background: var(--card-soft);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .feature-item h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .feature-item p {
+      font-size: 13px;
       color: var(--muted);
     }
 
@@ -295,14 +370,15 @@
       flex-direction: column;
       gap: 16px;
       position: sticky;
-      top: 74px;
+      top: 76px;
     }
 
     .side-card {
       border: 1px solid var(--border);
       background: var(--card);
-      border-radius: 16px;
-      padding: 18px;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
     }
 
     .side-head {
@@ -310,24 +386,27 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 12px;
-      font-size: 14.5px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
     }
 
     .side-ver {
       font-size: 12px;
       font-weight: 700;
-      color: var(--muted);
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      color: var(--text);
     }
 
     .dl-name {
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
       word-break: break-word;
     }
 
     .dl-meta {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--muted);
       margin-top: 3px;
       margin-bottom: 14px;
@@ -339,18 +418,19 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 10px 14px;
-      border-radius: 10px;
+      padding: 11px 16px;
+      border-radius: 12px;
       background: var(--primary);
-      color: var(--primary-text);
-      font-size: 13.5px;
+      color: #ffffff;
+      font-size: 14px;
       font-weight: 700;
       margin-bottom: 8px;
-      transition: background 0.15s ease;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
 
     .btn-dl:hover {
       background: var(--primary-hover);
+      transform: translateY(-1px);
     }
 
     .btn-outline {
@@ -359,8 +439,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 9px 14px;
-      border-radius: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
@@ -382,9 +462,6 @@
 
     .stat-label {
       color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
     }
 
     .stat-val {
@@ -399,15 +476,12 @@
       font-size: 12px;
     }
 
+    /* Releases */
     .release-item {
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 14px;
+      padding: 16px;
       margin-bottom: 12px;
-    }
-
-    .release-item:last-child {
-      margin-bottom: 0;
     }
 
     .release-top {
@@ -434,10 +508,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 10px;
-      border-radius: 8px;
+      padding: 9px 12px;
+      border-radius: 10px;
       border: 1px solid var(--border);
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -445,12 +519,44 @@
       background: var(--pill-bg);
     }
 
-    @media (max-width: 880px) {
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-height: 90vh;
+      max-width: 90vw;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 980px) {
       .page {
         grid-template-columns: 1fr;
+        padding: 20px 16px 56px;
       }
       .sidebar {
         position: static;
+      }
+      .shots-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
       }
       .nav-links {
         display: none;
@@ -462,9 +568,9 @@
   <header class="navbar">
     <div class="nav-inner">
       <div class="brand">
+        <span class="brand-dot"></span>
         <span>CMF Health</span>
-        <span class="brand-sep">/</span>
-        <span class="brand-sub">App</span>
+        <span class="brand-sub">/ App</span>
       </div>
       <nav class="nav-links">
         <a href="#overview" class="active">Overview</a>
@@ -473,25 +579,35 @@
         <a href="#install">Install</a>
       </nav>
       <div class="nav-actions">
-        <button class="icon-btn" id="themeBtn" type="button" title="Toggle theme">Theme</button>
+        <button class="icon-btn" id="themeBtn" type="button">Theme</button>
         <a class="icon-btn" href="https://github.com/Tanvirahmmid/CMF-Health" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </header>
 
   <main class="page" id="overview">
-    <!-- Left Main Column -->
     <div>
-      <div class="breadcrumb">Apps / CMF-Health</div>
-      <h1 class="title">CMF-Health</h1>
-      <p class="subtitle">
-        Companion Android app for CMF Watch Pro 2: live health &amp; fitness tracking, workout &amp; GPS route maps, 900+ FMC watch faces, watch widgets, notifications, and local AOTA firmware flashing.
-      </p>
-
-      <div class="meta-pills">
-        <a class="pill" href="https://github.com/Tanvirahmmid/CMF-Health" target="_blank" rel="noopener">GitHub Repo</a>
-        <span class="pill" id="updatedPill">Latest: v1.0.0 (QP.1.0-cmf)</span>
-        <span class="pill">CMF Watch Pro 2</span>
+      <div class="hero-banner">
+        <div class="breadcrumb">Apps / CMF-Health</div>
+        <div class="title-row">
+          <div class="app-badge-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="4" width="10" height="16" rx="4" />
+              <path d="M9 2h6M9 22h6" />
+              <circle cx="12" cy="12" r="2.5" />
+            </svg>
+          </div>
+          <h1 class="title">CMF-Health</h1>
+        </div>
+        <p class="subtitle">
+          Companion Android app for <strong>CMF Watch Pro 2</strong>: live health &amp; fitness tracking, workout &amp; GPS route maps, 900+ FMC watch faces, watch widgets, notifications, and local AOTA firmware flashing.
+        </p>
+        <div class="meta-pills">
+          <a class="pill" href="https://github.com/Tanvirahmmid/CMF-Health" target="_blank" rel="noopener">GitHub Repo</a>
+          <span class="pill accent" id="updatedPill">Latest: v1.0.0 (QP.1.0-cmf)</span>
+          <span class="pill">CMF Watch Pro 2</span>
+          <span class="pill">Android APK</span>
+        </div>
       </div>
 
       <div class="tabs">
@@ -501,51 +617,69 @@
 
       <!-- README Tab -->
       <section class="content-box" id="tab-readme">
-        <h2 id="screenshots">App Screenshots</h2>
+        <h2 id="screenshots">Screenshots</h2>
         <div class="shots-grid">
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('1.png')">
             <img src="1.png" alt="Summary &amp; Vitals" loading="lazy" />
             <div class="shot-cap">Summary &amp; Vitals</div>
           </div>
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('2.png')">
             <img src="2.png" alt="Active Energy" loading="lazy" />
             <div class="shot-cap">Active Energy</div>
           </div>
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('3.png')">
             <img src="3.png" alt="Workouts &amp; Trends" loading="lazy" />
             <div class="shot-cap">Workouts &amp; Trends</div>
           </div>
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('4.png')">
             <img src="4.png" alt="Workout Details &amp; GPS" loading="lazy" />
             <div class="shot-cap">Workout Details &amp; GPS</div>
           </div>
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('5.png')">
             <img src="5.png" alt="900+ Watch Faces" loading="lazy" />
             <div class="shot-cap">900+ Watch Faces</div>
           </div>
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('6.png')">
             <img src="6.png" alt="Watch Widgets" loading="lazy" />
             <div class="shot-cap">Watch Widgets</div>
           </div>
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('7.png')">
             <img src="7.png" alt="Device Settings" loading="lazy" />
             <div class="shot-cap">Device Settings</div>
           </div>
-          <div class="shot-card">
+          <div class="shot-card" onclick="openLightbox('8.png')">
             <img src="8.png" alt="Firmware &amp; Tools" loading="lazy" />
             <div class="shot-cap">Firmware &amp; Tools</div>
           </div>
         </div>
 
         <h2 id="features">Key Features</h2>
-        <ul>
-          <li><strong>Summary &amp; Active Energy:</strong> Live steps, distance, active minutes, stand hours, and interactive D / W / M / 6M / Y active energy charts with BMR and food logging.</li>
-          <li><strong>Vitals &amp; Body Measurements:</strong> 24/7 heart rate, resting HR, SpO2, sleep stages (Deep, Core, REM), stress tracking, and Weight &amp; BMI with healthy weight guidance.</li>
-          <li><strong>Workouts &amp; GNSS Routes:</strong> 7-day Duration, Calories, and Distance trends plus per-workout pace, cadence, stride length, heart rate zones, and GPS route map.</li>
-          <li><strong>900+ FMC Watch Faces:</strong> Infinite scroll, Jump-to-Page slider, search &amp; sort filters, Saved bookmarks, 2x/3x grid density, and direct <code>.bin</code> download to <code>Download/Watch Face</code>.</li>
-          <li><strong>Watch Widgets Editor:</strong> Read, customize, reorder, and restore default Quick Card widget screens on the watch.</li>
-          <li><strong>Device Tools &amp; Firmware:</strong> App notification bridge, quick replies, alarms, contacts, weather auto-refresh, firmware version readout, and local AOTA flashing.</li>
-        </ul>
+        <div class="features-grid">
+          <div class="feature-item">
+            <h4>Summary &amp; Active Energy</h4>
+            <p>Live steps, distance, active minutes, stand hours, and interactive D / W / M / 6M / Y active energy charts with BMR and food logging.</p>
+          </div>
+          <div class="feature-item">
+            <h4>Heart, SpO2, Sleep &amp; BMI</h4>
+            <p>24/7 heart rate, resting HR, SpO2, sleep stage breakdown (Deep, Core, REM), stress tracking, and BMI with healthy weight guidance.</p>
+          </div>
+          <div class="feature-item">
+            <h4>Workouts &amp; GNSS Routes</h4>
+            <p>7-day Duration, Calories, and Distance trends plus per-workout pace, cadence, stride length, heart rate zones, and GPS route map.</p>
+          </div>
+          <div class="feature-item">
+            <h4>900+ FMC Watch Faces</h4>
+            <p>Infinite scroll, Jump-to-Page slider, search &amp; sort filters, Saved bookmarks, 2x/3x grid density, and direct .bin download to phone storage.</p>
+          </div>
+          <div class="feature-item">
+            <h4>Watch Widgets Editor</h4>
+            <p>Read, customize, reorder, and restore default Quick Card widget screens directly on your CMF Watch Pro 2.</p>
+          </div>
+          <div class="feature-item">
+            <h4>Notifications &amp; Firmware</h4>
+            <p>App notification forwarding, quick replies, alarms, contacts, weather auto-refresh, firmware version readout, and local AOTA flashing.</p>
+          </div>
+        </div>
 
         <h3 id="install">How to Install</h3>
         <ol>
@@ -563,7 +697,7 @@
           <div class="release-item">
             <div class="release-top">
               <span class="release-tag">CMF Watch Pro v1.0.0 (QP.1.0-cmf)</span>
-              <span class="pill">Latest</span>
+              <span class="pill accent">Latest</span>
             </div>
             <p>Initial public release for CMF Watch Pro 2 with health &amp; workout tracking, 900+ FMC watch faces, watch widgets, and device tools.</p>
             <div class="asset-list">
@@ -632,14 +766,21 @@
     </aside>
   </main>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+    <img id="lightboxImg" src="" alt="Screenshot Preview" />
+  </div>
+
   <script>
-    // Theme toggle
-    const themeBtn = document.getElementById('themeBtn');
-    themeBtn.addEventListener('click', () => {
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    document.getElementById('themeBtn').addEventListener('click', () => {
       document.body.classList.toggle('dark');
     });
 
-    // Tabs
     const tabBtns = document.querySelectorAll('.tab-btn');
     tabBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -651,7 +792,6 @@
       });
     });
 
-    // Live GitHub Repo & Releases Stats
     const repoApi = 'https://api.github.com/repos/Tanvirahmmid/CMF-Health';
     fetch(repoApi)
       .then((r) => (r.ok ? r.json() : null))
@@ -704,7 +844,7 @@
             <div class="release-item">
               <div class="release-top">
                 <span class="release-tag">${rel.name || rel.tag_name}</span>
-                ${idx === 0 ? '<span class="pill">Latest</span>' : ''}
+                ${idx === 0 ? '<span class="pill accent">Latest</span>' : ''}
               </div>
               <p>${(rel.body || '').slice(0, 320).replace(/\n/g, '<br>')}</p>
               ${relAssets ? `<div class="asset-list">${relAssets}</div>` : ''}
